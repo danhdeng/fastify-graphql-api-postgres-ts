@@ -1,6 +1,7 @@
 ## Server
-# create package.json file
+{% comment %} 
 pnpm init
+{% endcomment %}
 
 pnpm add ts-node-dev typescript @types/jsonwebtoken -D
 
@@ -22,7 +23,7 @@ It's important to set these options in the tsconfig.json file of our project:
 ## Client
 pnpm create next-app --typescript client 
 
-pnpm add @graphql-codegen/cli @graphql-codegen/typescript-operations @graphql-codegen/typescript-react-querys -D
+pnpm add @graphql-codegen/cli @graphql-codegen/typescript-operations @graphql-codegen/typescript-react-query -D
 
 pnpm add graphql react-query
 
