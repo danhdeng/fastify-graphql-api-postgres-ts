@@ -1,5 +1,5 @@
-## Server
-[]: # create package.json file
+# Server
+###### create package.json file
 pnpm init
 
 
@@ -20,7 +20,7 @@ It's important to set these options in the tsconfig.json file of our project:
   "experimentalDecorators": true
 }
 
-## Client
+# Client
 pnpm create next-app --typescript client 
 
 pnpm add @graphql-codegen/cli @graphql-codegen/typescript-operations @graphql-codegen/typescript-react-query -D
