@@ -1,7 +1,7 @@
 ## Server
-{% comment %} 
+[]: # create package.json file
 pnpm init
-{% endcomment %}
+
 
 pnpm add ts-node-dev typescript @types/jsonwebtoken -D
 
