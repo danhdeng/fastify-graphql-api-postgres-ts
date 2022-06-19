@@ -1,5 +1,5 @@
 # Server
-###### create package.json file
+### create package.json file
 pnpm init
 
 
@@ -28,3 +28,7 @@ pnpm add @graphql-codegen/cli @graphql-codegen/typescript-operations @graphql-co
 pnpm add graphql react-query
 
 pnpm graphql-codegen init
+
+# kill the port that is running already
+
+npx kill-port 4000
