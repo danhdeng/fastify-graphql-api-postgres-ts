@@ -2,6 +2,7 @@ import { WebSocketServer } from 'ws';
 import { useServer } from 'graphql-ws/lib/use/ws';
 import { FastifyInstance } from 'fastify';
 import {GraphQLSchema} from 'graphql';
+import buildContext from '../context/buildContext';
 
 function createSubscriptionServer(app:FastifyInstance, schema:GraphQLSchema){
 
@@ -16,9 +17,12 @@ function createSubscriptionServer(app:FastifyInstance, schema:GraphQLSchema){
 
   // Passing in an instance of a GraphQLSchema and
   // telling the WebSocketServer to start listening
-  const serverCleanup = useServer({ schema }, wsServer);
-
-  return {wsServer, serverCleanup}
+  // const serverCleanup = useServer({ schema }, wsServer);
+  const serverCleanup= useServer({
+        schema,
+        context: buildContext
+    },wsServer,);
+  return {serverCleanup}
 }
 
 export default createSubscriptionServer;

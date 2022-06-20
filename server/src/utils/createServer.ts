@@ -16,7 +16,7 @@ import { breaerAuthChecker } from "./breaerAuthChecker";
 import fastifyAppClosePlugin from "./fastifyAppClosePlugin";
 import createSubscriptionServer from "./createSubscriptionServer";
 import fastifyGraphQLWSClosePlugin from "./fastifyGraphQLWSClosePlugin";
-import { useServer } from "graphql-ws/lib/use/ws";
+import MessageResolver from "../modules/message/message.resolver";
 
 
 export async function createServer() {
@@ -46,10 +46,10 @@ export async function createServer() {
     });
 
     const schema = await buildSchema({
-        resolvers:[UserResolver],
+        resolvers:[UserResolver, MessageResolver],
         authChecker: breaerAuthChecker,
     });
-    const {wsServer, serverCleanup} =createSubscriptionServer(app, schema);
+    const {serverCleanup} =createSubscriptionServer(app, schema);
 
     const server=new ApolloServer({
         schema,
@@ -62,10 +62,7 @@ export async function createServer() {
         ],
         context:buildContext
     });
-    useServer({
-        schema,
-        context: buildContext
-    },wsServer,);
+   
     return {app, server};
 }
 

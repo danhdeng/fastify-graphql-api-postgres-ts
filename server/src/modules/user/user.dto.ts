@@ -33,7 +33,7 @@ export class RegisterUserInput{
 @InputType()
 export class LoginInput{
     @Field({nullable:false})
-    userOrEmail: string;
+    usernameOrEmail: string;
 
     @Field({nullable:false})
     @Length(6,56)
