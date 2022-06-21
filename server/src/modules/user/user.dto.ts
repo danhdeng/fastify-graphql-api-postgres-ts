@@ -55,3 +55,9 @@ export class FollowerInput{
     username: string;
 }
 
+@ObjectType()
+export class Token{
+    @Field()
+    token: string;
+}
+

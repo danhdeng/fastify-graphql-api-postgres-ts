@@ -1,0 +1,14 @@
+version: '3.8'
+services:
+  twitter_postgres_db:
+    image: debezium/postgres:13-alpine
+    environment:
+      - POSTGRES_DATABASE=twitter_db
+      - POSTGRES_USER=twitter_dev
+      - POSTGRES_PASSWORD=twitter_dev
+    ports:
+      - 6543:5432
+    volumes:
+      - twitter_db_data:/data/db
+volumes:
+  twitter_db_data:

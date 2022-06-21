@@ -5,7 +5,7 @@ require('dotenv').config();
 import { buildSchema } from "type-graphql";
 import UserResolver from "../modules/user/user.resolver";
 import {ApolloServer} from 'apollo-server-fastify';
-import { ApolloServerPluginDrainHttpServer } from "apollo-server-core";
+import { ApolloServerPluginDrainHttpServer, ApolloServerPluginLandingPageGraphQLPlayground } from "apollo-server-core";
 import {fastify} from "fastify";
 import fastifyCors from "@fastify/cors";
 import fastifyCookie from "@fastify/cookie";
@@ -26,9 +26,10 @@ export async function createServer() {
         credentials:true,
         origin:(origin, callBack)=>{
             if(!origin ||
-            ["http://localhost:3000", "https://studio.apollographql.com"].includes(origin)){
+            ["http://localhost:3000","http://localhost:4000", "https://studio.apollographql.com"].includes(origin)){
                 return callBack(null, true);
             }    
+            console.log(origin);
             return callBack(new Error("Origin not allow"), false);
         }
     });
@@ -58,7 +59,8 @@ export async function createServer() {
             fastifyGraphQLWSClosePlugin(serverCleanup),
             ApolloServerPluginDrainHttpServer({
                 httpServer:app.server
-            })
+            }),
+            ApolloServerPluginLandingPageGraphQLPlayground(),
         ],
         context:buildContext
     });

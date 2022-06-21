@@ -2,14 +2,14 @@ import { ApolloError } from "apollo-server-core";
 import { Arg, Authorized, Ctx, FieldResolver, Mutation, Query, Resolver, Root } from "type-graphql";
 import { COOKIE_DOMAIN } from "../../constant";
 import { Context } from "../../context/context";
-import { FollowerInput, LoginInput, RegisterUserInput, User, UserFollowers } from "./user.dto";
+import { FollowerInput, LoginInput, RegisterUserInput, Token, User, UserFollowers } from "./user.dto";
 import { createUser, findUserByEmailOrUsername, findUserFollowedBy, findUserFollowing, findUsers, followUser, unfollowUser, verifyPassword } from "./user.service";
 
 
 @Resolver(()=>User)
 class UserResolver{
     @Mutation(()=>User)
-    async register(@Arg("input") input: RegisterUserInput){
+    async register(@Arg("input") input: RegisterUserInput):Promise<User>{
         try {
             const user = await createUser(input);
             return user;
@@ -25,8 +25,8 @@ class UserResolver{
         return context.user;
     }
 
-    @Mutation(()=>String)
-    async login(@Arg("input") input:LoginInput, @Ctx() context: Context){
+    @Mutation(()=>Token)
+    async login(@Arg("input") input:LoginInput, @Ctx() context: Context):Promise<Token>{
         const user= await findUserByEmailOrUsername(
             input.usernameOrEmail.toLocaleLowerCase()
         );
@@ -58,7 +58,7 @@ class UserResolver{
             httpOnly:true,
             sameSite: false,
         });
-        return token;
+        return {token};
     }
 
     @Query(()=>[User])

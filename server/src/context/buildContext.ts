@@ -1,5 +1,6 @@
 import fastifyJwt from "@fastify/jwt";
 import { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
+import { JWT_SECRET } from "../constant";
 import { ContextUser } from "./context";
 
 async function buildContext({
@@ -15,18 +16,10 @@ async function buildContext({
         Authorization:string;
     };
 }){
-    app.register(fastifyJwt, {
-    secret: "change-me",
-    cookie: {
-        cookieName: "token",
-        signed: false,
-    },
-    });
-
     if(connectionParams ||!request){
         try {
             return{
-                user: await app.jwt.verify<ContextUser>(connectionParams?.Authorization|| ""),
+                user: app.jwt.verify<ContextUser>(connectionParams?.Authorization|| ""),
             };
         } catch (error) {
             return {user: null};
