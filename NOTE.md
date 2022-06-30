@@ -59,3 +59,21 @@ pnpm graphql-codegen init
 # kill the port that is running already
 
 npx kill-port 4000
+
+# config the graphql codegen 
+
+pnpm graphql-codegen init
+
+λ pnpm graphql-codegen init
+
+    Welcome to GraphQL Code Generator!
+    Answer few questions and we will setup everything for you.
+
+? What type of application are you building? Application built with React
+? Where is your schema?: (path or url) http://localhost:4000/graphql
+? Where are your operations and fragments?: src/**/*.graphql
+? Pick plugins: TypeScript (required by other typescript plugins), TypeScript Operations (operations and fragments)
+? Where to write the output: src/generated/graphql.ts
+? Do you want to generate an introspection file? No
+? How to name the config file? codegen.yml
+? What script in package.json should run the codegen? codegen

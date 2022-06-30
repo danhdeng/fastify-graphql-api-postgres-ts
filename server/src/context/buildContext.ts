@@ -1,6 +1,4 @@
-import fastifyJwt from "@fastify/jwt";
 import { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
-import { JWT_SECRET } from "../constant";
 import { ContextUser } from "./context";
 
 async function buildContext({
@@ -17,6 +15,7 @@ async function buildContext({
     };
 }){
     if(connectionParams ||!request){
+        console.log(connectionParams);
         try {
             return{
                 user: app.jwt.verify<ContextUser>(connectionParams?.Authorization|| ""),

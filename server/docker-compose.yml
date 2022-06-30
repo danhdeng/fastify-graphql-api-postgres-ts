@@ -7,7 +7,7 @@ services:
       - POSTGRES_USER=twitter_dev
       - POSTGRES_PASSWORD=twitter_dev
     ports:
-      - 6543:5432
+      - 6566:5432
     volumes:
       - twitter_db_data:/data/db
 volumes:
